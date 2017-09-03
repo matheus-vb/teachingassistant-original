@@ -4,13 +4,16 @@ export class AlunoService {
   alunos: Aluno[] = [];
   
   gravar(aluno: Aluno): Aluno {
-    const alunoWithSameCPF = this.alunos.find(item => item.cpf === aluno.cpf);
-
-    if(alunoWithSameCPF) {
-      return null;
+    var result = null;
+    if (this.cpfNaoCadastrado(aluno.cpf)) {
+      this.alunos.push(aluno);
+      result = aluno;
     }
 
     this.alunos.push(aluno);
-    return aluno;
+    return result;
+  }
+  cpfNaoCadastrado(cpf: string): boolean {
+     return !this.alunos.find(a => a.cpf === cpf);
   }
 }
